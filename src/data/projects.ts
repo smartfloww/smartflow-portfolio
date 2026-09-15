@@ -39,9 +39,9 @@ export const PROJECTS: Project[] = [
       "An online store for a nail products brand — customers can browse the full range and check product updates, while the team manages everything from a simple admin page. Built to comfortably handle 100+ customers a day, and to give the business more control over its own sales.",
     websiteUrl: "https://lenailz.com/",
     images: [
-      "/images/projects/le-nailz/1.svg",
-      "/images/projects/le-nailz/2.svg",
-      "/images/projects/le-nailz/3.svg",
+      "/images/projects/le-nailz/1.png",
+      "/images/projects/le-nailz/2.png",
+      "/images/projects/le-nailz/3.png",
       "/images/projects/le-nailz/4.svg",
     ],
   },
@@ -53,10 +53,10 @@ export const PROJECTS: Project[] = [
       "A hair salon website with a calm, editorial feel — services, gallery, and everything a client needs to know before booking.",
     websiteUrl: "https://smartfloww.github.io/salon/",
     images: [
-      "/images/projects/lumiere/1.svg",
-      "/images/projects/lumiere/2.svg",
-      "/images/projects/lumiere/3.svg",
-      "/images/projects/lumiere/4.svg",
+      "/images/projects/lumiere/1.png",
+      "/images/projects/lumiere/2.png",
+      "/images/projects/lumiere/3.png",
+      "/images/projects/lumiere/4.png",
     ],
   },
   {
@@ -67,10 +67,10 @@ export const PROJECTS: Project[] = [
       "A Filipino massage center website that feels warm and unhurried — clear services, easy contact, and a look that matches the experience.",
     websiteUrl: "https://smartfloww.github.io/spa/",
     images: [
-      "/images/projects/anila/1.svg",
-      "/images/projects/anila/2.svg",
-      "/images/projects/anila/3.svg",
-      "/images/projects/anila/4.svg",
+      "/images/projects/anila/1.png",
+      "/images/projects/anila/2.png",
+      "/images/projects/anila/3.png",
+      "/images/projects/anila/4.png",
     ],
   },
   {
@@ -81,10 +81,10 @@ export const PROJECTS: Project[] = [
       "A skin and aesthetic clinic website with a clean, clinical look — treatments presented clearly, with contact details front and center.",
     websiteUrl: "https://smartfloww.github.io/Aesthetic-Dermatology-Clinic/",
     images: [
-      "/images/projects/dilag/1.svg",
-      "/images/projects/dilag/2.svg",
-      "/images/projects/dilag/3.svg",
-      "/images/projects/dilag/4.svg",
+      "/images/projects/dilag/1.png",
+      "/images/projects/dilag/2.png",
+      "/images/projects/dilag/3.png",
+      "/images/projects/dilag/4.png",
     ],
   },
 ];
