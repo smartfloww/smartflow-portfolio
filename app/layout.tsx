@@ -16,7 +16,11 @@ const sans = DM_Sans({
 export const metadata: Metadata = {
   title: "SmartFlowy Solutions — Thoughtful Digital Experiences",
   description: "We build thoughtful websites, e-commerce experiences, and intelligent automations for growing businesses.",
-  icons: { icon: "/imgs/logos/website-favicon.png" },
+  icons: {
+    icon: "/imgs/logos/website-favicon-circle.png?v=2",
+    shortcut: "/imgs/logos/website-favicon-circle.png?v=2",
+    apple: "/imgs/logos/apple-touch-icon.png?v=2",
+  },
   openGraph: {
     title: "SmartFlowy Solutions",
     description: "Thoughtful websites and digital solutions for growing businesses.",
