@@ -56,8 +56,14 @@ export default function Home() {
             </div>
           </div>
           <div className="hero-art" aria-label="Selected website previews">
-            <div className="art-board board-back"><Image src="/imgs/project-ss/marahuyo.png" alt="MARAHUYO Hair & Beauty Atelier website preview" fill sizes="38vw" /></div>
-            <div className="art-board board-front"><Image src="/imgs/project-ss/lenailz.png" alt="Lé Nailz website preview" fill sizes="42vw" priority /></div>
+            <div className="browser-window browser-back">
+              <div className="browser-chrome"><div className="browser-dots"><span /><span /><span /></div><div className="browser-address">marahuyo.com</div></div>
+              <div className="browser-screen"><Image src="/imgs/project-ss/marahuyo.png" alt="MARAHUYO Hair & Beauty Atelier website preview" fill sizes="38vw" /></div>
+            </div>
+            <div className="browser-window browser-front">
+              <div className="browser-chrome"><div className="browser-dots"><span /><span /><span /></div><div className="browser-address">lenailz.com</div></div>
+              <div className="browser-screen"><Image src="/imgs/project-ss/lenailz.png" alt="Lé Nailz website preview" fill sizes="42vw" priority /></div>
+            </div>
             <div className="art-note"><span>Selected work</span><strong>Built with clarity.</strong></div>
           </div>
         </section>
@@ -66,7 +72,7 @@ export default function Home() {
           <div className="section-heading"><div><p className="eyebrow"><span /> Selected work</p><h2>Digital spaces with<br /><em>purpose &amp; presence.</em></h2></div><p>Four distinct business experiences, designed to feel clear, credible, and easy to use.</p></div>
           <div className="portfolio-grid">
             {projects.map((project, index) => <a className={`project-card project-${index + 1}`} href={project.href} target="_blank" rel="noopener noreferrer" key={project.title}>
-              <div className="project-image"><Image src={project.image} alt={`${project.title} website screenshot`} fill sizes={index < 2 ? "(max-width: 768px) 100vw, 50vw" : "(max-width: 768px) 100vw, 33vw"} /></div>
+              <div className="project-image"><Image src={project.image} alt={`${project.title} website screenshot`} fill sizes={index < 2 ? "(max-width: 768px) 50vw, 50vw" : "(max-width: 768px) 50vw, 33vw"} /><span className="project-badge">{project.category}</span></div>
               <div className="project-meta"><div><span>{project.category}</span><h3>{project.title}</h3><p>{project.description}</p></div><span className="circle-link"><ArrowUpRight size={20} /></span></div>
             </a>)}
           </div>
