@@ -1,8 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
-import { ArrowRight, ArrowUpRight, Mail, Menu, MessageCircle, X } from "lucide-react";
+import { useEffect, useState } from "react";
+import { ArrowLeft, ArrowRight, ArrowUpRight, Mail, Menu, MessageCircle, X } from "lucide-react";
 
 const email = "hello@smartflowysolution.com";
 const messenger = "https://m.me/61590959274550";
@@ -15,6 +15,11 @@ const projects = [
   { title: "Anila", description: "A Filipino wellness spa website.", category: "Wellness", image: "/imgs/project-ss/anila.png", href: "https://smartfloww.github.io/spa/" },
 ];
 
+const testimonials = [
+  { name: "Lé Nailz", handle: "lé.nailz.mnl", followers: "4.7K", following: "129", posts: "722", logo: "/imgs/client-ss/lenailz-logo.jpg", review: "/imgs/client-ss/lenailz-review.jpeg", href: "https://www.facebook.com/GoodVibesSalon" },
+  { name: "Jess Salon at Home", handle: "jess.salonathome", followers: "8.9K", following: "180", posts: "370", logo: "/imgs/client-ss/jess-logo.jpeg", review: "/imgs/client-ss/jess-review.jpeg", href: "https://www.facebook.com/profile.php?id=61580949253081" },
+];
+
 const services = [
   { number: "01", title: "Website Design & Development", text: "Professional, responsive websites designed to establish credibility and support business growth." },
   { number: "02", title: "E-commerce Solutions", text: "Online stores designed to make product discovery and purchasing easier." },
@@ -24,7 +29,31 @@ const services = [
 
 export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [lightbox, setLightbox] = useState<string | null>(null);
+  const [lightbox, setLightbox] = useState<number | null>(null);
+  const [touchStart, setTouchStart] = useState<number | null>(null);
+
+  const showPrevious = () => {
+    setLightbox((current) => current === null ? null : (current - 1 + testimonials.length) % testimonials.length);
+  };
+
+  const showNext = () => {
+    setLightbox((current) => current === null ? null : (current + 1) % testimonials.length);
+  };
+
+  useEffect(() => {
+    if (lightbox === null) return;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setLightbox(null);
+      if (event.key === "ArrowLeft") showPrevious();
+      if (event.key === "ArrowRight") showNext();
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [lightbox]);
 
   return (
     <>
@@ -79,12 +108,21 @@ export default function Home() {
         </section>
 
         <section className="testimonials" id="testimonials">
-          <div className="testimonial-heading"><p className="eyebrow light"><span /> Real clients · real experiences</p><h2>Straight from <em>the DMs.</em></h2><p>Don&apos;t just take our word for it. Here&apos;s what working with us looks like, in our clients&apos; own words.</p></div>
-          <div className="testimonial-grid">
-            {[{ name: "Lé Nailz", profile: "/imgs/client-ss/lenailz-profile.jpeg", review: "/imgs/client-ss/lenailz-review.jpeg" }, { name: "Jess Salon at Home", profile: "/imgs/client-ss/jess-profile.jpeg", review: "/imgs/client-ss/jess-review.jpeg" }].map((client) => <article className="proof-card" key={client.name}>
-              <div className="proof-header"><span className="proof-avatar"><Image src={client.profile} alt={`${client.name} profile screenshot`} fill sizes="48px" /></span><div><strong>{client.name}</strong><span>Messenger conversation</span></div><span className="proof-mark">Proof</span></div>
-              <button type="button" className="proof-review" aria-label={`View larger Messenger review from ${client.name}`} onClick={() => setLightbox(client.review)}><Image src={client.review} alt={`Genuine Messenger review from ${client.name}`} fill sizes="(max-width: 768px) 88vw, 40vw" /></button>
-              <span className="view-label">View conversation <ArrowUpRight size={15} /></span>
+          <div className="testimonial-heading"><p className="eyebrow light"><span /> Screenshots don&apos;t lie</p><h2>Straight from <em>the DMs.</em></h2><p>Real clients, real messages — exactly as they landed. Swipe through genuine conversations from people we&apos;ve worked with.</p></div>
+          <div className="testimonial-grid" aria-label="Client Messenger reviews">
+            {testimonials.map((client, index) => <article className="proof-card" key={client.name}>
+              <div className="proof-profile-bar">
+                <div className="proof-avatar-small"><Image src={client.logo} alt={`${client.name} logo`} fill sizes="84px" /></div>
+                <div className="proof-stats">
+                  <strong>{client.handle}</strong>
+                  <div><span><b>{client.posts}</b> posts</span><span><b>{client.followers}</b> followers</span><span><b>{client.following}</b> following</span></div>
+                </div>
+                <span className="proof-facebook">f</span>
+              </div>
+              <button type="button" className="proof-review" aria-label={`View full Messenger conversation with ${client.name}`} onClick={() => setLightbox(index)}>
+                <Image src={client.review} alt={`Genuine Messenger review from ${client.name}`} fill sizes="(max-width: 768px) 82vw, 390px" />
+              </button>
+              <a className="proof-page-link" href={client.href} target="_blank" rel="noopener noreferrer">{client.name} on Facebook <ArrowUpRight size={14} /></a>
             </article>)}
           </div>
         </section>
@@ -111,7 +149,25 @@ export default function Home() {
 
       <footer><a className="footer-brand" href="#top" aria-label="Back to top"><Image src="/imgs/logos/website-header.png" alt="SmartFlowy Solutions" width={2172} height={724} /></a><p>Thoughtful digital solutions for growing businesses.</p><div><span>© {2026} SmartFlowy Solutions</span><a href={`mailto:${email}`}>{email}</a></div></footer>
 
-      {lightbox && <div className="lightbox" role="dialog" aria-modal="true" aria-label="Messenger review image" onClick={() => setLightbox(null)}><button type="button" aria-label="Close review" onClick={() => setLightbox(null)}><X /></button><div onClick={(event) => event.stopPropagation()}><Image src={lightbox} alt="Full-size Messenger review screenshot" width={752} height={1411} /></div></div>}
+      {lightbox !== null && <div className="lightbox" role="dialog" aria-modal="true" aria-label="Messenger review image" onClick={() => setLightbox(null)}>
+        <button className="lightbox-close" type="button" aria-label="Close review" onClick={() => setLightbox(null)}><X size={20} /></button>
+        <button className="lightbox-arrow lightbox-prev" type="button" aria-label="Previous review" onClick={(event) => { event.stopPropagation(); showPrevious(); }}><ArrowLeft size={22} /></button>
+        <div
+          className="lightbox-frame"
+          onClick={(event) => event.stopPropagation()}
+          onTouchStart={(event) => setTouchStart(event.changedTouches[0].clientX)}
+          onTouchEnd={(event) => {
+            if (touchStart === null) return;
+            const distance = event.changedTouches[0].clientX - touchStart;
+            if (Math.abs(distance) > 45) distance < 0 ? showNext() : showPrevious();
+            setTouchStart(null);
+          }}
+        >
+          <Image key={testimonials[lightbox].review} src={testimonials[lightbox].review} alt={`Full-size Messenger review from ${testimonials[lightbox].name}`} width={752} height={1411} />
+        </div>
+        <button className="lightbox-arrow lightbox-next" type="button" aria-label="Next review" onClick={(event) => { event.stopPropagation(); showNext(); }}><ArrowRight size={22} /></button>
+        <div className="lightbox-counter" aria-live="polite">{lightbox + 1} / {testimonials.length}</div>
+      </div>}
     </>
   );
 }
